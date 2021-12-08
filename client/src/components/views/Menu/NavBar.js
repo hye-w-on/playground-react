@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import UserMenu from "./Sections/UserMenu";
+import UserMenu from "./UserMenu";
 import { Drawer, Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
-import "./Sections/Navbar.css";
+import "./Navbar.css";
 
 function NavBar() {
   // for Drawer start

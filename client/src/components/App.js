@@ -5,7 +5,7 @@ import Auth from "../hoc/auth";
 import LandingPage from "./views/LandingPage/LandingPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
 import RegisterPage from "./views/RegisterPage/RegisterPageFormik";
-import NavBar from "./views/NavBar/NavBar";
+import NavBar from "./views/Menu/NavBar";
 import MenuBar from "./views/Menu/MenuBar";
 import Footer from "./views/Footer/Footer";
 import VideoUploadPage from "./views/VideoUploadPage/VideoUploadPage.js";
@@ -38,6 +38,11 @@ function App() {
             <Switch>
               <Route exact path="/" component={Auth(LandingPage, null)} />
               <Route exact path="/login" component={Auth(LoginPage, false)} />
+              <Route
+                exact
+                path="/login/:pageOption"
+                component={Auth(LoginPage, false)}
+              />
               <Route
                 exact
                 path="/register"

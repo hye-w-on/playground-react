@@ -56,6 +56,7 @@ function RegisterPage(props) {
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
+          alert("hi");
           let dataToSubmit = {
             email: values.email,
             password: values.password,

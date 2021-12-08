@@ -2,7 +2,7 @@
 import React from "react";
 import { Menu } from "antd";
 import axios from "axios";
-import { USER_SERVER } from "../../../Config";
+import { USER_SERVER } from "../../Config";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -35,9 +35,6 @@ function UserMenu(props) {
     //로그인한 사용자
     return (
       <Menu mode={props.mode}>
-        <Menu.Item key="upload">
-          <a href="/video/upload">Video</a>
-        </Menu.Item>
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>
         </Menu.Item>
