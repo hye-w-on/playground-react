@@ -5,19 +5,25 @@ import moment from "moment";
 const { Title } = Typography;
 const { Meta } = Card;
 
-function LandingPage() {
+function SubscriptionPage() {
   const [Videos, setVideos] = useState([]); // [] Array임
 
   useEffect(() => {
     // Dom이 처음 실행될 때 하는 작업
-    Axios.get("/api/video/getVideos").then((response) => {
-      if (response.data.success) {
-        console.log(response);
-        setVideos(response.data.videos);
-      } else {
-        alert("Failed to get Videos");
+
+    const subscriptionVariables = {
+      userFrom: localStorage.getItem("userId"),
+    };
+    Axios.get("/api/video/getSubscriptionVideos", subscriptionVariables).then(
+      (response) => {
+        if (response.data.success) {
+          console.log(response.data.videos);
+          setVideos(response.data.videos);
+        } else {
+          alert("Failed to get Videos");
+        }
       }
-    });
+    );
   }, []); // 두번째 파라미터가 []라면 1번만 실행
 
   const renderCards = Videos.map((video, index) => {
@@ -26,9 +32,9 @@ function LandingPage() {
     var seconds = Math.floor(video.duration - minutes * 60);
 
     return (
-      <Col lg={6} md={8} xs={24} key={index}>
+      <Col lg={6} md={8} xs={24}>
         {/* 브라우저 크기에 따라 컬럼 개수를 조절하는 ant design 문법 */}
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative" }} key={index}>
           <a href={`/video/${video._id}`}>
             <img
               style={{ width: "100%" }}
@@ -81,4 +87,4 @@ function LandingPage() {
   );
 }
 
-export default LandingPage;
+export default SubscriptionPage;
