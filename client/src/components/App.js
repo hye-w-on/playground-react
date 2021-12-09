@@ -1,15 +1,15 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import Auth from "../hoc/auth";
 // pages for this product
-import LandingPage from "./views/LandingPage/LandingPage.js";
+import VideoListPage from "./views/VideoPage/VideoListPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
 import RegisterPage from "./views/RegisterPage/RegisterPageFormik";
 import NavBar from "./views/Menu/NavBar";
 import MenuBar from "./views/Menu/MenuBar";
 import Footer from "./views/Footer/Footer";
 import VideoUploadPage from "./views/VideoUploadPage/VideoUploadPage.js";
-import VideoDetailPage from "./views/VideoDetailPage/VideoDetailPage.js";
+import VideoDetailPage from "./views/VideoPage/VideoDetailPage.js";
 import SubscriptionPage from "./views/SubscriptionPage/SubscriptionPage.js";
 import ExchangeRatePage from "./views/ExchangeRatePage/ExchangeRatePage.js";
 
@@ -26,7 +26,7 @@ function App() {
         <Layout>
           <NavBar />
         </Layout>
-        <Layout style={{ backgroundColor: "#eeeeee" }}>
+        <Layout style={{ backgroundColor: "#fefefe" }}>
           <MenuBar />
           <div
             style={{
@@ -36,7 +36,7 @@ function App() {
             }}
           >
             <Switch>
-              <Route exact path="/" component={Auth(LandingPage, null)} />
+              <Route exact path="/" component={Auth(VideoListPage, null)} />
               <Route exact path="/login" component={Auth(LoginPage, false)} />
               <Route
                 exact

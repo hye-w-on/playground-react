@@ -3,12 +3,14 @@ import { List, Avatar, Row, Col } from "antd";
 import axios from "axios";
 import SideVideo from "./Sections/SideVideo";
 import Subscriber from "./Sections/Subscriber";
-import Comments from "./Sections/Comments";
+import CommentList from "./Sections/CommentList";
 import LikeDislikes from "./Sections/LikeDislikes";
+import "./Video.css";
+
 function DetailVideoPage(props) {
   const videoId = props.match.params.videoId;
   const [Video, setVideo] = useState([]);
-  const [CommentLists, setCommentLists] = useState([]);
+  const [commentList, setCommentList] = useState([]);
 
   const videoVariable = {
     videoId: videoId,
@@ -27,7 +29,7 @@ function DetailVideoPage(props) {
     axios.post("/api/comment/getComments", videoVariable).then((response) => {
       if (response.data.success) {
         console.log("response.data.comments", response.data.comments);
-        setCommentLists(response.data.comments);
+        setCommentList(response.data.comments);
       } else {
         alert("Failed to get video Info");
       }
@@ -35,23 +37,22 @@ function DetailVideoPage(props) {
   }, []);
 
   const updateComment = (newComment) => {
-    setCommentLists(CommentLists.concat(newComment));
+    setCommentList(commentList.concat(newComment));
   };
 
   if (Video.writer) {
     return (
       <Row>
-        <Col lg={18} xs={24}>
-          <div
-            className="postPage"
-            style={{ width: "100%", padding: "3rem 4em" }}
-          >
+        <Col xl={18} lg={24}>
+          {" "}
+          {/*브라우저 사이즈가 작을때는 컴포넌트가 전체화면(24)을 사용 */}
+          <div className="postPage">
             <video
               style={{ width: "100%" }}
               src={`http://localhost:5000/${Video.filePath}`}
               controls
             ></video>
-
+            {/*왜 굳이 actions에 넣었을까? */}
             <List.Item
               actions={[
                 <LikeDislikes
@@ -67,20 +68,19 @@ function DetailVideoPage(props) {
             >
               <List.Item.Meta
                 avatar={<Avatar src={Video.writer && Video.writer.image} />}
-                title={<a href="https://ant.design">{Video.title}</a>}
+                title={Video.title}
                 description={Video.description}
               />
-              <div></div>
             </List.Item>
 
-            <Comments
-              CommentLists={CommentLists}
+            <CommentList
+              commentList={commentList}
               postId={Video._id}
               refreshFunction={updateComment}
             />
           </div>
         </Col>
-        <Col lg={6} xs={24}>
+        <Col xl={6} lg={24}>
           <SideVideo />
         </Col>
       </Row>

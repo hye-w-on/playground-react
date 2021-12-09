@@ -3,18 +3,19 @@ import { Comment, Avatar, Button, Input } from "antd";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 import LikeDislikes from "./LikeDislikes";
+import "./Comment.css";
+
 const { TextArea } = Input;
-function SingleComment(props) {
+function CommentItem(props) {
   const user = useSelector((state) => state.user);
   const [CommentValue, setCommentValue] = useState("");
   const [OpenReply, setOpenReply] = useState(false); //댓글 숨김
-
   const handleChange = (e) => {
     setCommentValue(e.currentTarget.value);
   };
 
   const openReply = () => {
-    setOpenReply(!OpenReply);
+    setOpenReply((OpenReply) => !OpenReply);
   };
 
   const onSubmit = (e) => {
@@ -37,37 +38,33 @@ function SingleComment(props) {
       }
     });
   };
-
-  const actions = [
-    <LikeDislikes
-      comment
-      commentId={props.comment._id}
-      userId={localStorage.getItem("userId")}
-    />,
-    <span onClick={openReply} key="comment-basic-reply-to">
-      Reply to{" "}
-    </span>,
-  ];
-
   return (
     <div>
       <Comment
-        actions={actions}
+        actions={[
+          <LikeDislikes
+            comment
+            commentId={props.comment._id}
+            userId={localStorage.getItem("userId")}
+          />,
+          <span className="replyto" onClick={openReply}>
+            Reply to
+          </span>,
+        ]}
         author={props.comment.writer.name}
         avatar={<Avatar src={props.comment.writer.image} alt="image" />}
         content={<p>{props.comment.content}</p>}
       ></Comment>
 
       {OpenReply && ( //OpenReply가 true 일때만 표시
-        <form style={{ display: "flex" }} onSubmit={onSubmit}>
+        <form className="comment-form comment-form-reply" onSubmit={onSubmit}>
           <TextArea
-            style={{ width: "100%", borderRadius: "5px" }}
             onChange={handleChange}
             value={CommentValue}
             placeholder="write some comments"
           />
           <br />
-          <Button style={{ width: "20%", height: "52px" }} onClick={onSubmit}>
+          <Button type="primary" onClick={onSubmit}>
             Submit
           </Button>
         </form>
@@ -76,4 +73,4 @@ function SingleComment(props) {
   );
 }
 
-export default SingleComment;
+export default CommentItem;

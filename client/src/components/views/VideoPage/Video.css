@@ -1,0 +1,94 @@
+@import "~antd/dist/antd.css";
+/*antd css 조작을 위함*/
+
+.thumbnail,
+.thumbnail-side {
+  position: relative;
+}
+.thumbnail img {
+  width: 100%;
+}
+.thumbnail-side img {
+  height: 120px;
+}
+.video-time {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 4px;
+  color: #000;
+  background-color: #fff;
+  opacity: 0.8;
+  padding: 2px 6px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 10px;
+  /*이걸로도 높이가 조절 됨*/
+}
+.ant-avatar-image {
+  position: relative;
+  top: 6px;
+}
+.ant-card-body {
+  padding: 15px;
+}
+.video-writer {
+  display: block;
+  font-size: 14px;
+  color: #1e90ff;
+  position: relative;
+  top: -5px;
+  margin-bottom: -4px;
+}
+.video-detail {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.video-created {
+  font-size: 12px;
+  letter-spacing: -0.8px;
+  position: relative;
+  top: 1px;
+  color: #aaaaaa;
+}
+/*Video Dtail Page*/
+.postPage {
+  padding-top: 3em;
+  padding-right: 2em;
+  padding-left: 2em;
+  padding-bottom: 2em;
+}
+.sideVideos {
+  margin-top: 3em;
+  padding-right: 2em;
+  margin-left: 2em;
+  margin-bottom: 2em;
+}
+.side-video-card {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.5rem;
+}
+.side-video-card .ant-card-body {
+  width: 100%;
+}
+.video-title {
+  font-weight: 500;
+}
+
+.side-video-card .video-writer {
+  display: block;
+  font-size: 14px;
+  color: #1e90ff;
+  position: relative;
+  margin-top: 1em;
+}
+
+.side-video-card .video-detail {
+  position: absolute;
+  bottom: 0.5em;
+  right: 0.5em;
+}

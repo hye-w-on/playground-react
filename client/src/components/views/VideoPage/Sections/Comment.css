@@ -1,0 +1,47 @@
+@import "~antd/dist/antd.css";
+
+.ant-comment-inner {
+  padding-bottom: 2px;
+  padding-top: 4px;
+}
+.ant-comment-actions {
+  margin-top: 0px;
+  margin-bottom: 2px;
+}
+.comment-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 12px;
+}
+.comment-form-reply {
+  padding-left: 40px;
+}
+.comment-form TextArea {
+  width: 80%;
+  border-radius: 5px;
+}
+
+.comment-form Button {
+  width: 20%;
+  border-radius: 5px;
+  height: 54px;
+  margin-left: 5px;
+}
+
+.ant-comment-actions > li > .replyto {
+  color: #1e90ff;
+  font-weight: 500;
+}
+.reply-open {
+  font-size: 11px;
+  margin-left: 50px;
+  margin-bottom: 0;
+  color: #1e90ff;
+  font-weight: 500;
+}
+.reply-itmem {
+  margin-left: 40px;
+}

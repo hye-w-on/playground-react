@@ -1,16 +1,16 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
   app.use(
-    "/koreaexim",
+    "/api",
     createProxyMiddleware({
-      target: "https://www.koreaexim.go.kr",
+      target: "http://localhost:5000",
       changeOrigin: true,
     })
   );
   app.use(
-    "/api",
+    "/koreaexim",
     createProxyMiddleware({
-      target: "http://localhost:5000",
+      target: "https://www.koreaexim.go.kr",
       changeOrigin: true,
     })
   );

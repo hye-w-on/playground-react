@@ -9,11 +9,11 @@ const { auth } = require("../middleware/auth");
 //             Subscribe
 //=================================
 
-router.post("/subscribeNumber", (req, res) => {
+router.post("/subscribeCount", (req, res) => {
   Subscriber.find({ userTo: req.body.userTo }).exec((err, subscribe) => {
     if (err) return res.status(400).send(err);
 
-    res.status(200).json({ success: true, subscribeNumber: subscribe.length });
+    res.status(200).json({ success: true, subscribeCount: subscribe.length });
   });
 });
 
