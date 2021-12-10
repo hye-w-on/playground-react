@@ -20,7 +20,9 @@ const videoSchema = mongoose.Schema(
     filePath: {
       type: String,
     },
-    catogory: String,
+    commentEnable: {
+      type: Boolean,
+    },
     views: {
       type: Number,
       default: 0,

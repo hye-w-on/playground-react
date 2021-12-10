@@ -1,31 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Card, Avatar, Col, Row } from "antd";
+import { Radio, Card, Avatar, Col, Row } from "antd";
 import Axios from "axios";
 import moment from "moment";
 import "./Video.css";
 import {
   PlaySquareOutlined,
-  LikeOutlined,
-  PlaySquareTwoTone,
+  PushpinFilled,
   HeartTwoTone,
 } from "@ant-design/icons";
-
 const { Meta } = Card;
 
 function VideoListPage() {
   const [Videos, setVideos] = useState([]); // [] Array임
+  const subscriptionVariables = {
+    userFrom: localStorage.getItem("userId"),
+  };
 
   useEffect(() => {
+    retrieveAll();
+  }, []);
+
+  const retrieveAll = () => {
     Axios.get("/api/video/getVideos").then((response) => {
       if (response.data.success) {
-        console.log(response);
         setVideos(response.data.videos);
       } else {
         alert("Failed to get Videos");
       }
     });
-  }, []);
-
+  };
+  const retrieveSubscription = () => {
+    Axios.post("/api/video/getSubscriptionVideos", subscriptionVariables).then(
+      (response) => {
+        if (response.data.success) {
+          setVideos(response.data.videos);
+        } else {
+          alert("Failed to get Videos");
+        }
+      }
+    );
+  };
   const videoCards = Videos.map((video, index) => {
     // Videos가 []Array기 때문에 Map 사용가능, 갯수만큼 반복
     var minutes = Math.floor(video.duration / 60);
@@ -68,7 +82,14 @@ function VideoListPage() {
 
   return (
     <div style={{ width: "85%", margin: "3rem auto" }}>
-      <p>ALL</p>
+      <Radio.Group defaultValue="ALL" buttonStyle="solid">
+        <Radio.Button value="ALL" onClick={retrieveAll}>
+          All
+        </Radio.Button>
+        <Radio.Button value="SUB" onClick={retrieveSubscription}>
+          <PushpinFilled /> Subscription
+        </Radio.Button>
+      </Radio.Group>
       <hr />
       <Row gutter={16}>{videoCards} </Row>
       {/* gutter : Col간 간격 */}

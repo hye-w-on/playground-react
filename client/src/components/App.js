@@ -8,9 +8,8 @@ import RegisterPage from "./views/RegisterPage/RegisterPageFormik";
 import NavBar from "./views/Menu/NavBar";
 import MenuBar from "./views/Menu/MenuBar";
 import Footer from "./views/Footer/Footer";
-import VideoUploadPage from "./views/VideoUploadPage/VideoUploadPage.js";
+import VideoUploadPage from "./views/VideoPage/VideoUploadPage.js";
 import VideoDetailPage from "./views/VideoPage/VideoDetailPage.js";
-import SubscriptionPage from "./views/SubscriptionPage/SubscriptionPage.js";
 import ExchangeRatePage from "./views/ExchangeRatePage/ExchangeRatePage.js";
 
 import { Layout } from "antd";
@@ -26,7 +25,7 @@ function App() {
         <Layout>
           <NavBar />
         </Layout>
-        <Layout style={{ backgroundColor: "#fefefe" }}>
+        <Layout style={{ backgroundColor: "#fdfdfd" }}>
           <MenuBar />
           <div
             style={{
@@ -60,12 +59,7 @@ function App() {
               />
               <Route
                 exact
-                path="/subscription"
-                component={Auth(SubscriptionPage, null)}
-              />
-              <Route
-                exact
-                path="/exchangerate"
+                path="/exchange"
                 component={Auth(ExchangeRatePage, null)}
               />
             </Switch>

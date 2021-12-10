@@ -7,11 +7,4 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
-  app.use(
-    "/koreaexim",
-    createProxyMiddleware({
-      target: "https://www.koreaexim.go.kr",
-      changeOrigin: true,
-    })
-  );
 };

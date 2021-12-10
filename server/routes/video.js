@@ -29,22 +29,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single("file");
 
-const currentPut = async () => {
-  let response;
-  try {
-    response = await axios.get(
-      "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=DHYwVp9lk9jbrWLi7VUoL8Lh3Jf6tD2P&searchdate=20211203&data=AP01"
-    );
-  } catch (e) {
-    console.log(e);
-  }
-  return response;
-};
-
-//=================================
-//             Video
-//=================================
-
 router.post("/uploads", (req, res) => {
   //클라이언트에서 받은 파일을 서버에 저장한다
   upload(req, res, (err) => {
@@ -91,7 +75,7 @@ router.post("/thumbnail", (req, res) => {
       // Will take screens at 20%, 40%, 60% and 80% of the video
       count: 3, //썸네일 생성 개수
       folder: "uploads/thumbnails", //썸네일 저장위치
-      size: "320x240", //썸네일 사이즈
+      size: "320x180", //썸네일 사이즈
       // %b input basename, %b는 원본파일이름 ( filename w/o extension )
       filename: "thumbnail-%b.png",
     });
@@ -111,11 +95,6 @@ router.post("/uploadVideo", (req, res) => {
 
 //비디오 리스트 가져오기
 router.get("/getVideos", (req, res) => {
-  /*  currentPut().then((response) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    console.log(response.data);
-   // res.json(response.data.response.body);
-  });*/
   Video.find() //mongoose function
     .populate("writer") //??
     .exec((err, videos) => {
@@ -126,6 +105,7 @@ router.get("/getVideos", (req, res) => {
 
 //비디오 상세정보 가져오기
 router.post("/getVideoDetail", (req, res) => {
+  console.log(req.body);
   Video.findOne({ _id: req.body.videoId })
     .populate("writer")
     .exec((err, videoDetail) => {
@@ -135,8 +115,8 @@ router.post("/getVideoDetail", (req, res) => {
 });
 
 //구독 비디오 리스트 가져오기
-router.get("/getSubscriptionVideos", (req, res) => {
-  //구독 중인 사람들을 찾는다
+router.post("/getSubscriptionVideos", (req, res) => {
+  //구독 중인 채널들을 찾는다
   Subscriber.find({ userFrom: req.body.userFrom }).exec((err, subscribers) => {
     if (err) return res.status(400).send(err);
 
@@ -145,8 +125,7 @@ router.get("/getSubscriptionVideos", (req, res) => {
     subscribers.map((subscriber, i) => {
       subscribedUser.push(subscriber.userTo);
     });
-
-    //찾은 사람들의 비디오를 가지고 온다
+    //찾은 채널들의 비디오를 가지고 온다
     Video.find({
       writer: { $in: subscribedUser }, //mogoDB 문법
     })

@@ -1,30 +1,55 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Button, Input, Select } from "antd";
+import { Button, Input, Select,Table } from "antd";
+import "./ExchangeRate.css";
+const { Option } = Select;
+const Country = [
+  { countryName: "대한민국", curruncyCode: "KRW", curruncyName:"원", curruncySign: "￦", emoji:"🇰🇷" },
+  { countryName: "USA", curruncyCode: "USD",  curruncyName:"달러", curruncySign: "$",  emoji:"🇺🇸" },
+  { countryName: "유럽연합", curruncyCode: "EUR",  curruncyName:"유로", curruncySign: "€", emoji:"🇪🇺"},
+];
 
 function ExchangeRatePage() {
   const [exchangeRate, setExchangeRate] = useState(1100);
-  const [exchangeRateList, setExchangeRateList] = useState();
-  const [country, setCountry] = useState("USD");
+  const [exchangeRateList, setExchangeRateList] = useState([]);
+  const [country, setCountry] = useState(Country[1]);
   const [rateEdit, setRateEdit] = useState(false);
   const [foreignCurrency, setForeignCurrency] = useState(0);
   const [krw, setKrw] = useState(0);
+const columns = [
+     {
+    title: 'cur_nm',
+    dataIndex: 'cur_nm',
+  },
+  {
+    title: 'cur_unit',
+    dataIndex: 'cur_unit',
+  },
+  {
+    title: 'bkpr',
+    dataIndex: 'bkpr',
+  },
+    {
+    title: 'cur_unit',
+    dataIndex: 'cur_unit',
+  },
+];
+let data = [];
 
   useEffect(() => {
-    Axios.get(
-      "/koreaexim/site/program/financial/exchangeJSON?authkey=DHYwVp9lk9jbrWLi7VUoL8Lh3Jf6tD2P&searchdate=20211203&data=AP01"
-    ).then((response) => {
-      console.log(response);
-      setExchangeRateList(response);
+     Axios.get("api/exchange/getExchangeList").then((response) => {
+      console.log(response.data);
+      setExchangeRateList(response.data);
       for (let exchangeRate of exchangeRateList) {
-        console.log(exchangeRate[2]);
+        console.log(exchangeRate);
       }
     });
   }, []);
 
   const onSelectCurruncy = (value) => {
     //antd 문법
-    setCountry(value);
+    let counrty = Country[value];
+    setCountry(counrty);
   };
 
   const onChangeExchangeRate = (e) => {
@@ -44,42 +69,24 @@ function ExchangeRatePage() {
     setKrw(e.target.value);
     setForeignCurrency(e.target.value / exchangeRate);
   };
-
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+  <div className="exchange-container">
+    <div className="exchange-form">
       <br />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className="exchangerate-edit">
         <Select
-          value={country}
           onChange={onSelectCurruncy}
           style={{ width: "100px" }}
         >
-          <Select value="USD">
+       { Country.map((country,index) => (
+          <Option key={index} value={index}>
             <div>
-              <span>🇺🇸 </span>
-              USA
+              <span>{country.emoji} </span>
+              {country.countryName} 
             </div>
-          </Select>
-          <Select value="EUR">
-            <div>
-              <span>🇪🇺 </span>
-              유럽연합
-            </div>
-          </Select>
+          </Option>
+       ))
+       }
         </Select>
         <Input
           allowClear
@@ -94,21 +101,19 @@ function ExchangeRatePage() {
           {rateEdit ? "취소" : "편집"}
         </Button>
       </div>
-      <label htmlFor="currency">{country}</label>
+      <label htmlFor="currency">{country.curruncyCode}</label>
       <Input
         allowClear
-        style={{ width: "50%" }}
         id="currency"
         value={foreignCurrency}
         type="number"
         onChange={onChangeForeignCurrency}
-        prefix="$"
-        suffix="달러"
+        prefix={country.curruncySign}
+        suffix={country.curruncyName}
       />
       <label htmlFor="krw">KRW</label>
       <Input
         allowClear
-        style={{ width: "50%" }}
         id="krw"
         value={krw}
         type="number"
@@ -116,7 +121,9 @@ function ExchangeRatePage() {
         prefix="￦"
         suffix="원"
       />
-    </div>
+    </div> 
+       <Table columns={columns} dataSource={exchangeRateList}/>
+ </div>
   );
 }
 

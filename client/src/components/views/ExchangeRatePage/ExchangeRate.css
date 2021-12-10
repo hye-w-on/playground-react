@@ -1,0 +1,18 @@
+.exchange-container{
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.exchange-form{
+    width: "50%" 
+}
+
+.exchangerate-edit{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

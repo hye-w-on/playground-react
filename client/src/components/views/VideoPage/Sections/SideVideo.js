@@ -22,7 +22,7 @@ function SideVideo() {
   const sideVideoItem = SideVideos.map((video, index) => {
     var minutes = Math.floor(video.duration / 60);
     var seconds = Math.floor(video.duration - minutes * 60);
-    //style={{ display: "flex", flexDirection: "row" }}
+
     return (
       <Card
         hoverable

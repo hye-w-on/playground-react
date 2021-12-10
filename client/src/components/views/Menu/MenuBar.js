@@ -37,7 +37,7 @@ function MenuBar() {
             Profile
           </Menu.Item>
           <Menu.Item key="2" icon={<DollarOutlined />}>
-            <a href="/exchangerate">ExchangeRate</a>
+            <a href="/exchange">ExchangeRate</a>
           </Menu.Item>
           <SubMenu key="sub1" icon={<VideoCameraOutlined />} title="Video">
             <Menu.Item key="3" icon={<YoutubeOutlined />}>
@@ -45,9 +45,6 @@ function MenuBar() {
             </Menu.Item>
             <Menu.Item key="4" icon={<PlusCircleOutlined />}>
               <a href="/video/upload">Upload</a>
-            </Menu.Item>
-            <Menu.Item key="5" icon={<PushpinOutlined />}>
-              <a href="/subscription">Subscription</a>
             </Menu.Item>
           </SubMenu>
         </Menu>
