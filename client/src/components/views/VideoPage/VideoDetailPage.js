@@ -37,7 +37,7 @@ function DetailVideoPage(props) {
   }, []);
 
   const updateComment = (newComment) => {
-    // setCommentList(commentList.concat(newComment));
+    setCommentList(commentList.concat(newComment));
   };
 
   if (Video.writer) {

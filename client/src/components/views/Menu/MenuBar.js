@@ -6,7 +6,6 @@ import {
   VideoCameraOutlined,
   YoutubeOutlined,
   PlusCircleOutlined,
-  PushpinOutlined,
 } from "@ant-design/icons";
 
 function MenuBar() {
