@@ -60,7 +60,9 @@ function ExchangeRatePage() {
 
   useEffect(() => {
     let neweExchangeList = [];
-    Axios.get("api/exchange/getExchangeList").then((exchangeList) => {
+    Axios.get(
+      "https://rhv2mfccrf.execute-api.ap-northeast-2.amazonaws.com/prod/exchange/20211208"
+    ).then((exchangeList) => {
       Axios.get("api/exchange/getPreExchangeList").then((preExchangeList) => {
         //netChange 계산
         for (let i = 0; i < exchangeList.data.length; i++) {

@@ -1,10 +1,6 @@
 const axios = require("axios");
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-const ffmpeg = require("fluent-ffmpeg");
-
-const { auth } = require("../middleware/auth");
 
 const getExchange = async () => {
   let response;
